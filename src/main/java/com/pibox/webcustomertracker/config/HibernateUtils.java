@@ -1,5 +1,6 @@
 package com.pibox.webcustomertracker.config;
 
+import com.pibox.webcustomertracker.entity.Customer;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -16,7 +17,6 @@ public class HibernateUtils {
             try {
                 Configuration configuration = new Configuration();
                 Properties settings = new Properties();
-                settings.put(Environment.DRIVER, "com.mysql.jdbc.Driver");
                 settings.put(Environment.URL,
                         "jdbc:mysql://localhost:3306/web_customer_tracker?serverTimezone=UTC");
                 settings.put(Environment.USER, "springstudent");
@@ -25,6 +25,7 @@ public class HibernateUtils {
                         "org.hibernate.dialect.MySQL5Dialect");
                 settings.put(Environment.SHOW_SQL, "true");
                 configuration.setProperties(settings);
+                configuration.addAnnotatedClass(Customer.class);
                 ServiceRegistry serviceRegistry = new
                         StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
                 sessionFactory =
