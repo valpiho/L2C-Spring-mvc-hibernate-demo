@@ -39,4 +39,16 @@ public class CustomerDAOImpl implements CustomerDAO {
         session.close();
         return customer;
     }
+
+    @Override
+    public void deleteCustomer(int id) {
+        Session session = HibernateUtils.getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        Customer customer = session.find(Customer.class, id);
+        if (customer != null) {
+            session.delete(customer);
+        }
+        transaction.commit();
+        session.close();
+    }
 }
